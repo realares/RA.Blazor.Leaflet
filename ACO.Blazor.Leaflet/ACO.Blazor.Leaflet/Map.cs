@@ -209,7 +209,10 @@ namespace ACO.Blazor.Leaflet
 			}
 		}
 
-		public ValueTask FitBounds(PointF corner1, PointF corner2, PointF? padding = null, float? maxZoom = null)
+        public async Task AddControl(string controlId) => await LeafletInterops.AddControl(_jsRuntime, Id, controlId);
+
+
+        public ValueTask FitBounds(PointF corner1, PointF corner2, PointF? padding = null, float? maxZoom = null)
 		{
 			return LeafletInterops.FitBounds(_jsRuntime, Id, corner1, corner2, padding, maxZoom);
 		}
@@ -252,12 +255,13 @@ namespace ACO.Blazor.Leaflet
 			OnBoundsChanged?.Invoke(this, new EventArgs());
 		}
 
-		/// <summary>
-		/// Increases the zoom level by one notch.
-		/// 
-		/// If <c>shift</c> is held down, increases it by three.
-		/// </summary>
-		public async Task ZoomIn(MouseEventArgs e) => await LeafletInterops.ZoomIn(_jsRuntime, Id, e);
+
+        /// <summary>
+        /// Increases the zoom level by one notch.
+        /// 
+        /// If <c>shift</c> is held down, increases it by three.
+        /// </summary>
+        public async Task ZoomIn(MouseEventArgs e) => await LeafletInterops.ZoomIn(_jsRuntime, Id, e);
 
 		/// <summary>
 		/// Decreases the zoom level by one notch.
@@ -266,9 +270,12 @@ namespace ACO.Blazor.Leaflet
 		/// </summary>
 		public async Task ZoomOut(MouseEventArgs e) => await LeafletInterops.ZoomOut(_jsRuntime, Id, e);
 
-		#region events
 
-		public delegate void MapEventHandler(object sender, Event e);
+
+
+        #region events
+
+        public delegate void MapEventHandler(object sender, Event e);
 
 		public delegate void MapResizeEventHandler(object sender, ResizeEvent e);
 

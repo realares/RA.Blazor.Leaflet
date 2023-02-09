@@ -4,6 +4,7 @@ import "/_content/ACO.Blazor.Leaflet/leaflet/leaflet-heat.js";
 
 export const maps = {};
 export const layers = {};
+export const panels = {};
 
 window.leafletBlazor = {
     create: function (map, objectReference) {
@@ -19,6 +20,11 @@ window.leafletBlazor = {
         connectMapEvents(leafletMap, objectReference);
         maps[map.id] = leafletMap;
         layers[map.id] = [];
+    },
+    addControl: function (mapId, controlId) {
+        var map = maps[mapId];
+        var panel = panels[controlId];
+        map.addControl(panel);
     },
     addTilelayer: function (mapId, tileLayer, objectReference) {
         const layer = L.tileLayer(tileLayer.urlTemplate, {
