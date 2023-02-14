@@ -51,7 +51,7 @@ namespace ACO.Blazor.Leaflet
 		/// geographical bounds, bouncing the user back if the user tries to pan
 		/// outside the view.
 		/// </summary>
-		public Tuple<LatLng, LatLng> MaxBounds { get; set; }
+		public Tuple<LatLng, LatLng> MaxBounds { get; set; } = new Tuple<LatLng, LatLng>(new LatLng(-90f, -180f), new LatLng(90f, 180f));
 
 		/// <summary>
 		/// Whether a zoom control is added to the map by default.
@@ -59,11 +59,11 @@ namespace ACO.Blazor.Leaflet
 		/// Defaults to true.
 		/// </summary>
 		public bool ZoomControl { get; set; } = true;
-
-		/// <summary>
-		/// Event raised when the component has finished its first render.
-		/// </summary>
-		public event Action OnInitialized;
+				
+        /// <summary>
+        /// Event raised when the component has finished its first render.
+        /// </summary>
+        public event Action OnInitialized;
 
 		public string Id { get; }
 
@@ -209,8 +209,7 @@ namespace ACO.Blazor.Leaflet
 			}
 		}
 
-        public async Task AddControl(string controlId) => await LeafletInterops.AddControl(_jsRuntime, Id, controlId);
-
+		//public async Task AddControl(object control, string controlId) => await LeafletInterops.AddControl(_jsRuntime, Id, control,controlId);
 
         public ValueTask FitBounds(PointF corner1, PointF corner2, PointF? padding = null, float? maxZoom = null)
 		{
@@ -439,6 +438,6 @@ namespace ACO.Blazor.Leaflet
 		[JSInvokable]
 		public void NotifyContextMenu(MouseEvent eventArgs) => OnContextMenu?.Invoke(this, eventArgs);
 
-		#endregion InteractiveLayerEvents
-	}
+        #endregion InteractiveLayerEvents
+    }
 }

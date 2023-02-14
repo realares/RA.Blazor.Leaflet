@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using ACO.Blazor.Leaflet.Models;
@@ -34,15 +32,12 @@ namespace ACO.Blazor.Leaflet
 				value.Item1.Dispose();
 		}
 
-
-        public static ValueTask AddControl(IJSRuntime js, string mapId, string controlId) =>
-            js.InvokeVoidAsync($"{_BaseObjectContainer}.addControl", mapId, controlId);
-
         public static ValueTask AddLayer(IJSRuntime js, string mapId, Layer layer)
 		{
 			return layer switch
 			{
-				TileLayer tileLayer => js.InvokeVoidAsync($"{_BaseObjectContainer}.addTilelayer", mapId, tileLayer, CreateLayerReference(mapId, tileLayer)),
+				WmsTileLayer wmsTileLayer => js.InvokeVoidAsync($"{_BaseObjectContainer}.addWmsTilesLayer", mapId, wmsTileLayer, CreateLayerReference(mapId, wmsTileLayer)),
+                TileLayer tileLayer => js.InvokeVoidAsync($"{_BaseObjectContainer}.addTilelayer", mapId, tileLayer, CreateLayerReference(mapId, tileLayer)),
 				MbTilesLayer mbTilesLayer => js.InvokeVoidAsync($"{_BaseObjectContainer}.addMbTilesLayer", mapId, mbTilesLayer, CreateLayerReference(mapId, mbTilesLayer)),
 				ShapefileLayer shapefileLayer => js.InvokeVoidAsync($"{_BaseObjectContainer}.addShapefileLayer", mapId, shapefileLayer, CreateLayerReference(mapId, shapefileLayer)),
 				Marker marker => js.InvokeVoidAsync($"{_BaseObjectContainer}.addMarker", mapId, marker, CreateLayerReference(mapId, marker)),
