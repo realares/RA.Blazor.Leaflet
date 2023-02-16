@@ -6,27 +6,29 @@ import "/_content/ACO.Blazor.Leaflet/leaflet/leaflet-heat.js";
 export const maps = {};
 export const layers = {};
 
-//https://github.com/Leaflet/Leaflet/issues/6416#issuecomment-1360369989
-
 window.leafletBlazor = {
     create: function (map, objectReference) {
-        var crs = new L.Proj.CRS(
-            'EPSG:28992',
-            '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs', {
+        //crs taken from: https://github.com/arbakker/pdok-js-map-examples/blob/master/leaflet-geojson-wmts-epsg28992/index.js
+        var crs = new L.Proj.CRS('EPSG:28992',
+            '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs', { // eslint-disable-line no-undef
+            transformation: L.Transformation(-1, -1, 0, 0), 
             resolutions: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210, 0.105],
-            //origin: [-285401.920, 903401.920],
-            //bounds: L.bounds([-285401.92, 22598.08], [595401.920, 903401.920])
-        });
+            origin: [-285401.920, 903401.920],
+            bounds: L.bounds([-285401.920, 903401.920], [595401.920, 22598.080]) 
+        })
 
         var leafletMap = L.map(map.id, {
             center: map.center,
-            zoom: map.zoom ? map.zoom : (crs.options.resolutions.length - 1) / 2,
+            zoom: map.zoom ? map.zoom :Math.floor((crs.options.resolutions.length - 1) / 2),
             zoomControl: map.zoomControl,
             minZoom: map.minZoom ? map.minZoom : 1,
-            maxZoom: map.maxZoom ? map.maxZoom : crs.options.resolutions.length - 1,
-            maxBounds: map.maxBounds && map.maxBounds.item1 && map.maxBounds.item2 ? L.latLngBounds(map.maxBounds.item1, map.maxBounds.item2) : L.latLngBounds(L.latLng(-90, -180), L.latLng(90,180)),
+            maxZoom: map.maxZoom ? map.maxZoom : crs.options.resolutions.length - 1,        
             crs: crs
         });
+        map.maxBounds = leafletMap.maxBounds && map.maxBounds.item1 && map.maxBounds.item2 ? L.latLngBounds(map.maxBounds.item1, map.maxBounds.item2) :
+                        crs ? L.latLngBounds(leafletMap.unproject(crs.projection.bounds.min), leafletMap.unproject(crs.projection.bounds.max)) :
+                        undefined;
+
 
         connectMapEvents(leafletMap, objectReference);
         maps[map.id] = leafletMap;

@@ -51,7 +51,7 @@ namespace ACO.Blazor.Leaflet
 		/// geographical bounds, bouncing the user back if the user tries to pan
 		/// outside the view.
 		/// </summary>
-		public Tuple<LatLng, LatLng> MaxBounds { get; set; } = new Tuple<LatLng, LatLng>(new LatLng(-90f, -180f), new LatLng(90f, 180f));
+		public Tuple<LatLng, LatLng> MaxBounds { get; set; }
 
 		/// <summary>
 		/// Whether a zoom control is added to the map by default.
