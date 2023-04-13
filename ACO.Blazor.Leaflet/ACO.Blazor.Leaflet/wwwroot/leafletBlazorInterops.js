@@ -186,6 +186,12 @@ window.leafletBlazor = {
             layer.setBounds([[rectangle.shape.bottom, rectangle.shape.left], [rectangle.shape.top, rectangle.shape.right]]);
         }
     },
+    setOpacity: function (mapId, layerId,opacity) {
+        let layer = layers[mapId].find(l => l.id === layerId);
+        if (layer !== undefined) {
+            layer.setOpacity(opacity);
+        }
+    },
     addCircle: function (mapId, circle, objectReference) {
         const layer = L.circle(circle.position,
             {

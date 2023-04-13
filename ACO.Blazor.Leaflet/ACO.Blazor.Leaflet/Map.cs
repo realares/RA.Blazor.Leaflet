@@ -222,6 +222,8 @@ namespace ACO.Blazor.Leaflet
 				new PointF(bounds.SouthWest.Lat, bounds.SouthWest.Lng), padding, maxZoom);
 		}
 
+		public ValueTask SetOpacity(Layer layer)
+			=> LeafletInterops.SetOpacity(_jsRuntime, Id, layer);
 
 		public ValueTask<Bounds> GetBoundsFromMarkers(params Marker[] markers)
 			=> LeafletInterops.GetBoundsFromMarkers(_jsRuntime, markers);
