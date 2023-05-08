@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using ACO.Blazor.Leaflet.Models;
 using Rectangle = ACO.Blazor.Leaflet.Models.Rectangle;
+using System.Runtime.InteropServices;
 
 namespace ACO.Blazor.Leaflet
 {
@@ -130,5 +131,9 @@ namespace ACO.Blazor.Leaflet
 
         public static ValueTask ZoomOut(IJSRuntime js, string mapId, MouseEventArgs e) =>
             js.InvokeVoidAsync($"{_BaseObjectContainer}.zoomOut", mapId, e);
+
+        public static ValueTask<LatLng> ForwardProj(IJSRuntime js, string mapId, LatLng latlon)
+            => js.InvokeAsync<LatLng>($"{_BaseObjectContainer}.forwardProj", mapId, latlon);
+
     }
 }

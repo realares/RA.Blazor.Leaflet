@@ -245,6 +245,7 @@ namespace ACO.Blazor.Leaflet
 
 		public async Task<LatLng> GetCenter() => await LeafletInterops.GetCenter(_jsRuntime, Id);
 		public async Task<float> GetZoom() => await LeafletInterops.GetZoom(_jsRuntime, Id);
+		public async Task<LatLng> ForwardProj(LatLng latlng) => await LeafletInterops.ForwardProj(_jsRuntime, Id, latlng);
 		public async Task<Bounds> GetBounds() => await LeafletInterops.GetBounds(_jsRuntime, Id);
 
 

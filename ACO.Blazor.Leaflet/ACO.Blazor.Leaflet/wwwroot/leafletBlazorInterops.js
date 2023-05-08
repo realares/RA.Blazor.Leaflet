@@ -31,9 +31,7 @@ window.leafletBlazor = {
         connectMapEvents(leafletMap, objectReference);
         maps[map.id] = leafletMap;
         layers[map.id] = [];
-    },
-
-    
+    },    
     addTilelayer: function (mapId, tileLayer, objectReference) {
         const layer = L.tileLayer(tileLayer.urlTemplate, {
             attribution: tileLayer.attribution,
@@ -263,6 +261,11 @@ window.leafletBlazor = {
             bubblingMouseEvents: geodata.isBubblingMouseEvents,
             onEachFeature: function onEachFeature(feature, layer) {
                 connectInteractionEvents(layer, objectReference);
+            },
+            style: {
+                "color": "#ff7800",
+                "weight": 3,
+                "opacity": 1
             }
         };
 
@@ -346,6 +349,10 @@ window.leafletBlazor = {
     openLayerPopup: function (mapId, layerId) {
         let layer = layers[mapId].find(l => l.id === layerId);
         layer.openPopup();
+    },
+    forwardProj: function (mapId, point) {
+        const x = maps[mapId].options.crs.projection._proj.forward([point.lng, point.lat]);
+        return { Lat: x[0], Lng: x[1] };
     }
 };
 
