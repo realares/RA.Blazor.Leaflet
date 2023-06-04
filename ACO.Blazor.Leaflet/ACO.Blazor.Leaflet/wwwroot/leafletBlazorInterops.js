@@ -255,6 +255,7 @@ window.leafletBlazor = {
     },
     addGeoJsonLayer: function (mapId, geodata, objectReference) {
         const geoDataObject = JSON.parse(geodata.geoJsonData);
+        const style = geodata.style;
         var options = {
             ...createInteractiveLayer(geodata),
             title: geodata.title,
@@ -262,11 +263,7 @@ window.leafletBlazor = {
             onEachFeature: function onEachFeature(feature, layer) {
                 connectInteractionEvents(layer, objectReference);
             },
-            style: {
-                "color": "#ff7800",
-                "weight": 3,
-                "opacity": 1
-            }
+            style: style
         };
 
         const geoJsonLayer = L.geoJson(geoDataObject, options);
