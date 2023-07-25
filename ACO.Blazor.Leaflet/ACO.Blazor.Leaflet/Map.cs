@@ -16,6 +16,13 @@ namespace ACO.Blazor.Leaflet
 {
 	public class Map
 	{
+
+        /// <summary>
+        /// Proj4 definition for the projection
+		/// When not set (null) it defaults to WGS84
+        /// </summary>
+        public Crs Crs { get; set; } = null; 
+
 		/// <summary>
 		/// Initial geographic center of the map
 		/// </summary>
