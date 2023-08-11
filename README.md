@@ -36,8 +36,8 @@ In your `_Host.cshtml`/`_Layout.cshtml` (Blazor Server) or `index.html` (Blazor 
 
 ```html
 <!-- ACO.Blazor.Leaflet -->
-<script src="_content/ACO.Blazor.Leaflet/leafletBlazorInterops.js"></script>
-<link rel="stylesheet" href="_content/ACO.Blazor.Leaflet/leaflet/leaflet.css"/>
+<script src="_content/SpatialFocus.ACO.Blazor.Leaflet/leafletBlazorInterops.js"></script>
+<link rel="stylesheet" href="_content/SpatialFocus.ACO.Blazor.Leaflet/leaflet/leaflet.css"/>
 ```
 
 You can now use the components and the rest of the library.

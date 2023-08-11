@@ -1,22 +1,41 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <Version>0.5.0-alpha</Version>
-        <Authors>Max Reble, Mihai Stan</Authors>
-        <Company>ACO Ahlmann SE &amp; Co. KG</Company>
+        <TargetFramework>net7.0</TargetFramework>
+        <Version>0.1.2</Version>
+        <PackageId>SpatialFocus.ACO.Blazor.Leaflet</PackageId>
+        <Authors>pergerch</Authors>
+        <Company>SpatialFocus</Company>
+        <Title>A C# wrapper for Leaflet</Title>
         <Description>BlazorLeaflet is a wrapper offering easy-to-use Blazor components that expose the Leaflet API in C#.</Description>
         <Copyright>Max Reble, Mihai Stan</Copyright>
-        <RepositoryUrl>https://github.com/ACOAhlmann/ACO.Blazor.Leaflet</RepositoryUrl>
+        <RepositoryUrl>https://github.com/SpatialFocus/ACO.Blazor.Leaflet.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>blazor, leaflet, c#, js, interop</PackageTags>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageOutputPath>$(SolutionDir)\.nuget</PackageOutputPath>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/SpatialFocus/ACO.Blazor.Leaflet</PackageProjectUrl>
+        <PackageIcon>icon.png</PackageIcon>
+		<PackageIconUrl>https://raw.githubusercontent.com/SpatialFocus/ACO.Blazor.Leaflet/master/media/icon.png</PackageIconUrl>
         <LangVersion>9</LangVersion>
+
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
     </PropertyGroup>
 
+	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	</PropertyGroup>
+
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.4" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.10" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     </ItemGroup>
+
+    <ItemGroup>
+		<None Include="..\..\media\icon.png" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
 </Project>
