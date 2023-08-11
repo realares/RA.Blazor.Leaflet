@@ -1,7 +1,7 @@
-import "/_content/ACO.Blazor.Leaflet/leaflet/leaflet.js";
-import "/_content/ACO.Blazor.Leaflet/leaflet/proj4leaflet.js";
-import "/_content/ACO.Blazor.Leaflet/leaflet/Leaflet.ImageOverlay.Rotated.js";
-import "/_content/ACO.Blazor.Leaflet/leaflet/leaflet-heat.js";
+import "/_content/SpatialFocus.ACO.Blazor.Leaflet/leaflet/leaflet.js";
+import "/_content/SpatialFocus.ACO.Blazor.Leaflet/leaflet/proj4leaflet.js";
+import "/_content/SpatialFocus.ACO.Blazor.Leaflet/leaflet/Leaflet.ImageOverlay.Rotated.js";
+import "/_content/SpatialFocus.ACO.Blazor.Leaflet/leaflet/leaflet-heat.js";
 
 export const maps = {};
 export const layers = {};
