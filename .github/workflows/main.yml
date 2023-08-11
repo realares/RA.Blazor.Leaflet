@@ -1,0 +1,46 @@
+name: Build & Publish
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Tags for this build'
+
+jobs:
+  publish:
+    name: Build, Test, Pack & Release
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Project
+      run: dotnet build ACO.Blazor.Leaflet/ACO.Blazor.Leaflet.sln -c Release
+    - name: Publish NuGet
+      id: publishNuGet
+      uses: alirezanet/publish-nuget@v3.0.0
+      with:
+        # Filepath of the project to be packaged, relative to root of repository
+        PROJECT_FILE_PATH: ACO.Blazor.Leaflet/ACO.Blazor.Leaflet/ACO.Blazor.Leaflet.csproj
+        # NuGet package id, used for version detection & defaults to project name
+        PACKAGE_NAME: SpatialFocus.ACO.Blazor.Leaflet
+        # API key to authenticate with NuGet server
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+        # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
+        INCLUDE_SYMBOLS: true
+        # Format of the git tag, [*] gets replaced with actual version
+        TAG_FORMAT: build_*
+    - name: Persist NuGet artifact
+      uses: actions/upload-artifact@v1
+      if: ${{steps.publishNuGet.outputs.PACKAGE_NAME != ''}}
+      with:
+        name: ${{steps.publishNuGet.outputs.PACKAGE_NAME}}
+        path: ${{steps.publishNuGet.outputs.PACKAGE_PATH}}
+    - name: Persist SNuGet artifact
+      uses: actions/upload-artifact@v1
+      if: ${{steps.publishNuGet.outputs.SYMBOLS_PACKAGE_NAME != ''}}
+      with:
+        name: ${{steps.publishNuGet.outputs.SYMBOLS_PACKAGE_NAME}}
+        path: ${{steps.publishNuGet.outputs.SYMBOLS_PACKAGE_PATH}}
