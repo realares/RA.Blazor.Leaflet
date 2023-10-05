@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "RA.Blazor.Leaflet.Samples": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:60904;http://localhost:60905"
+    }
+  }
+}
